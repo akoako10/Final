@@ -13,6 +13,7 @@ import { useInitializeLocalStorage } from './hooks/useInitializeLocalStorage';
 import { CurrencyProvider } from './hooks/useCurrency';
 import './app.css';
 
+import './utils/dev';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

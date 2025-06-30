@@ -3,7 +3,7 @@ import { useCurrency } from '../hooks/useCurrency';
 import { formatPrice, parseUSDPrice } from '../utils/currency';
 
 interface PriceDisplayProps {
-  price: string; // USD price in format "$XX.XX"
+  price: string;
   className?: string;
 }
 
