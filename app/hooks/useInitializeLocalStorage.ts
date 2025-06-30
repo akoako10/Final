@@ -6,13 +6,15 @@ const INITIALIZED_STORAGE_KEY = 'ecommerce-initialized';
 
 export const useInitializeLocalStorage = () => {
   useEffect(() => {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return;
+    }
+
     const isInitialized = localStorage.getItem(INITIALIZED_STORAGE_KEY);
 
     if (!isInitialized) {
       localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
-
       localStorage.setItem(INITIALIZED_STORAGE_KEY, 'true');
-
       console.log('LocalStorage initialized with products data');
     }
   }, []);

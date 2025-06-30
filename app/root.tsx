@@ -1,18 +1,12 @@
 import React from 'react';
-import {
-  isRouteErrorResponse,
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from 'react-router';
+import { isRouteErrorResponse, Links, Outlet, Scripts, ScrollRestoration } from 'react-router';
 
 import type { Route } from './+types/root';
 import { useInitializeLocalStorage } from './hooks/useInitializeLocalStorage';
 import { CurrencyProvider } from './hooks/useCurrency';
 import './app.css';
 
+import './utils/dev';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -33,11 +27,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
+        <title>E-commerce App</title>
+        <meta name="description" content="A modern e-commerce application" />
         <Links />
       </head>
       <body>
-        {children}
+        <CurrencyProvider>{children}</CurrencyProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -47,14 +42,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   useInitializeLocalStorage();
-  return (
-    <CurrencyProvider>
-      <Outlet />
-    </CurrencyProvider>
-  );
+  return <Outlet />;
 }
 
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+export function ErrorBoundary({ error }: { error: Error }) {
   let message = 'Oops!';
   let details = 'An unexpected error occurred.';
   let stack: string | undefined;
